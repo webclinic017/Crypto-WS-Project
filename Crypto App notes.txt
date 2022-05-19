@@ -1,0 +1,4 @@
+wss://stream.binance.com:9443
+
+WORKINg Etherium web socket endpoint url
+wss://stream.binance.com:9443/ws/etheur@trade
