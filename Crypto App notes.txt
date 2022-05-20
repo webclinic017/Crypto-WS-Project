@@ -1,4 +1,14 @@
 wss://stream.binance.com:9443
 
-WORKINg Etherium web socket endpoint url
+WORKING Etherium web socket endpoint url
 wss://stream.binance.com:9443/ws/etheur@trade
+
+pipe data to txt file : wscat -c wss://stream.binance.com:9443/ws/etheur@trade | data.txt
+
+CMDS : 
+pip install packageName : installs python package
+
+REQUIREMENTS :
+ - python-binance
+ - numpy
+ - TA-Lib
