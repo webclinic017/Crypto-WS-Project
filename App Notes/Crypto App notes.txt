@@ -1,0 +1,22 @@
+wss://stream.binance.com:9443
+
+WORKING Etherium web socket endpoint url
+wss://stream.binance.com:9443/ws/etheur@trade
+
+pipe data to txt file : wscat -c wss://stream.binance.com:9443/ws/etheur@trade | data.txt
+
+CMDS : 
+pip install packageName : installs python package
+
+REQUIREMENTS :
+ - python-binance
+ - numpy
+ - TA-Lib
+ - backtrader (maybe)
+ - flask
+
+ Useful links :
+  - csv file operations : https://docs.python.org/3/library/csv.html
+  - flask documentation : https://flask.palletsprojects.com/en/2.1.x/quickstart/#debug-mode
+  - TA-Lib documentation : https://pypi.org/project/TA-Lib/
+  - python-binance documentation : https://python-binance.readthedocs.io/en/latest/
