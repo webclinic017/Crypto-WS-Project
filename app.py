@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request, redirect
+from flask import Flask, render_template, flash, request, redirect, jsonify
 import config, csv
 from binance import Client
 from binance.enums import *
@@ -35,13 +35,44 @@ def buy():
         flash(e.message, "error")
     return redirect('/')
 
-@app.route('/sell')
+@app.route('/sell', methods=['Post'])
 def sell():
-    return 'Sell'
+    try:
+        order = client.create_order(
+            symbol=request.form['symbol'],
+            side=SIDE_SELL,
+            type=ORDER_TYPE_MARKET,
+            quantity=request.form['quantity'])
+    except Exception as e:
+        flash(e.message, "error")
+    return redirect('/')
 
 @app.route('/settings')
 def settings():
     return 'Settings'
+
+@app.route('/history')
+def history():
+
+    #Transform data into a dictionary so that it can be entered into the chart
+    historicalCandles = client.get_historical_klines("BTCUSDT", Client.KLINE_INTERVAL_5MINUTE)
+    
+    processed_candleSticks = []
+
+    for candleStick in historicalCandles:
+
+        processed = { 
+            "time": candleStick[0] / 1000, 
+            "open": candleStick[1], 
+            "high": candleStick[2], 
+            "low": candleStick[3], 
+            "close": candleStick[4]
+        }
+        #print(candleStick)
+        #print("open (app.py) " + candleStick[1])
+        processed_candleSticks.append(processed)
+    
+    return jsonify(processed_candleSticks)
 
 
 if __name__ == "__main__":

@@ -2,11 +2,12 @@
     <head>
         <Title>Coin View</Title>
         <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
-        <script src="{{ url_for('static', filename='index.js') }}"></script>
     </head>
     <body>
         <h1>{{title}}</h1>
         <div class="data"></div>
+
+        <!-- candleStick Chart --> 
         <div id="chart"></div>
 
         <select>
@@ -22,7 +23,7 @@
             <input type="text" id="RSI_overbough" name="RSI_overbought" placeholder="30"/>
         </div>
         <div id="buy" style="margin: 20px 0px; width: 600px; padding: 10px; border:2px solid black; border-radius: 10px; background-color: gray;">
-            <h1>Buy Crypto</h1>
+            <h1>Market Buy Crypto</h1>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div style="margin: 10px 0px; padding:10px; background-color:pink; color:red; border:1px solid red;">
@@ -40,6 +41,28 @@
                     {% endfor %}
                 </select>
                 <input type="submit" name="buy" id="buy"> </input>
+            </form>
+        </div>
+
+        <div id="sell" style="margin: 20px 0px; width: 600px; padding: 10px; border:2px solid black; border-radius: 10px; background-color: gray;">
+            <h1>Market Sell Crypto</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div style="margin: 10px 0px; padding:10px; background-color:pink; color:red; border:1px solid red;">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <form action="/sell" method="post">
+                <input type="text" id="quantity" name="quantity" placeholder="eg. 0.001" />
+                <select name="symbol" id="symbol">
+                    {% for symbol in symbols %}
+                        <option>{{ symbol['symbol'] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" name="sell" id="sell"></input>
             </form>
         </div>
 
